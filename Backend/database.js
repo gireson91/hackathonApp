@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:1904/kids_tv_db", {
+mongoose.connect("mongodb://localhost:27017/kids_tv_db", {
     useNewUrlParser: true
-}).then(() => console.log("connected to mongo db")).catch(err => console.error(err));
+}, () => console.log("Connection successful"));
 
 const programmeSchema = new mongoose.Schema({
     name: {
@@ -13,6 +13,5 @@ const programmeSchema = new mongoose.Schema({
 
 const programme = mongoose.model('programme', programmeSchema);
 
-module.exports = {
-    programme
-}
+module.exports = programme;
+// 1 sec

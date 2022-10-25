@@ -1,16 +1,15 @@
 const express = require('express');
 const app = express();
-// const bodyParser = require('body-parser');
-// const programmeRoutes = require('./routes/programmes');
+const bodyParser = require('body-parser');
+const programme = require('./routes/programmes');
 
-// app.use(bodyParser.json());
-const testRoute = require("./routes/testRoute");
+app.use(bodyParser.json());
 
-app.use('/test', testRoute);
+app.use('/programme', programme);
 
-
-// app.use('/programmes', programmeRoutes);
-
+app.use((err, req, res, next) => {
+    res.status(500).send(err);
+})
 
 const server = app.listen(1904, () => {
     console.log(`Server started successfully on port number ${server.address().port}`);

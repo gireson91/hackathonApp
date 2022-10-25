@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { programme } = require('../database');
+const programme  = require('../database');
 
 router.get("/hello", (req, res) => {
     res.send("Hello World!")
@@ -7,14 +7,15 @@ router.get("/hello", (req, res) => {
 
 // router.get("/get", (req, res) => programme.find({}).then(results => res.send(results)).catch(err => next(err)));
 
-router.post("/addProgramme", (req, res, next) => {
-    programme.create(req.body)
-    .then(result => res.status(201).send(result))
-    .catch(e => next(e));
+router.post("/add", async (req, res, next) => {
+    try {
+        const result = await programme.create(req.body);
+        res.status(201).send(result);
+    } catch(err) {
+        return next(err);
+    }
 });
 
-let newDoc = new programme();
-
-newDoc.save().then(() => console.log("Done!"));
 
 module.exports = router;
+// it was t
