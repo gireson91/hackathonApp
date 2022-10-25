@@ -34,7 +34,7 @@ const programmeSchema = new mongoose.Schema({
         type: Number,
         require: true,
         min: [-1, `Come on, it can't be that bad!`],
-        max: [10, `I know you like it, but please keep it up to 10`]
+        max: [10, `I know you like it, but please keep it within 10!`]
     },
 });
 
