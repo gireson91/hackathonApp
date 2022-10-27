@@ -14,23 +14,23 @@ const programmeSchema = new mongoose.Schema({
         required: true,
         maxLength: 300
     },
-    'Genre': {
+    'genre': {
         type: String,
         default: 'Unknown'
     },
-    'Channel': {
+    'channel': {
         type: String,
         default: 'Unknown'
     },
-    'First Aired': {
+    'firstAired': {
         type: String,
         default: 'Unknown'
     },
-    'Episode Length': {
+    'epLength': {
         type: String,
         default: 'Unknown'
     },
-    'Rating': {
+    'rating': {
         type: Number,
         require: true,
         min: [-1, `Come on, it can't be that bad!`],

@@ -8,10 +8,6 @@ import Library from './components/Library';
 import Add from './components/Add';
 
 
-
-//Add Function
-
-
 function App() {
   return (
     <Router>
