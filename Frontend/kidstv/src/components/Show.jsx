@@ -1,19 +1,24 @@
-import { Card } from "react-bootstrap";
+import { Card, Button, ButtonGroup } from "react-bootstrap";
 
-//Show function
-const Show = ({ id, title, description, genre, channel, firstAired, epLength, rating }) => {
+
+const Show = ({ id, name, desc, genre, channel, firstAired, epLength, rating, handleDel }) => {
+
 
     return (
         <>
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '18rem' }} bg='light'>
                 <Card.Body>
-                    <Card.Title>{title}</Card.Title>
-                    <Card.Text>{description}</Card.Text>
+                    <Card.Title>{name}</Card.Title>
+                    <Card.Text>{desc}</Card.Text>
                     <Card.Text>{`Genre: ${genre}`}</Card.Text>
                     <Card.Text>{`Channel: ${channel}`}</Card.Text>
                     <Card.Text>{`First Aired: ${firstAired}`}</Card.Text>
                     <Card.Text>{`Episode Length: ${epLength}`}</Card.Text>
                     <Card.Text>{`Rating: ${rating}`}</Card.Text>
+                    <ButtonGroup key={id}>
+                        <Button>Update</Button>{' '}
+                        <Button variant="danger" onClick={() => handleDel(id)}>Delete</Button>
+                    </ButtonGroup>
                 </Card.Body>
             </Card>
         </>

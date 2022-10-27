@@ -3,7 +3,7 @@ const programme  = require('../database');
 
 router.get("/getAll", async (req, res) => {
     try {
-        const result = await programme.find({})
+        const results = await programme.find({})
         .then(results => res.send(results))
     } catch(err) {
         return next(err);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Form, Row } from 'react-bootstrap'
 
 function Add() {
     const [name, setName] = useState('');
@@ -31,16 +32,17 @@ function Add() {
     }
 
     return (
-        <form onSubmit={handleAdd} action="/action_page.php">
-            <div class="mb-3 mt-3">
-                <label class="form-label" for="title">Title:</label>
-                <input id="title" class="form-control" type="text" onChange={e => setName(e.target.value)} placeholder="Enter a Show" />
-            </div>
-            <div class="mb-3">
+        <Container fluid>
+        <Form onSubmit={handleAdd} action="/action_page.php">
+            <Form.Group as={Row} className="mb-3 mt-3" controlId="formHorizontal">
+                <Form.Label  column sm={2} for="title">Title:</Form.Label>
+                <Form.Control id="title" class="form-control" type="text" onChange={e => setName(e.target.value)} placeholder="Enter a Show" />
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <label class="form-label"  for="desc">Description:</label>
                 <textarea id="desc" rows="2" class="form-control" type="text" onChange={e => setDesc(e.target.value)} placeholder="Enter a Description" />
-            </div>
-            <div class="mb-3">
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <label class="form-label" for="genre">Genre: (select one)</label>
                 <select id="genre" class="form-control" onChange={e => setGenre(e.target.value)}>
                     <option>Action</option>
@@ -51,29 +53,30 @@ function Add() {
                     <option>Game Show</option>
                     <option>Mystery</option>
                 </select>
-            </div>
-            <div class="mb-3">
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <label class="form-label" for="channel">Channel:</label>
                 <input id="channel" class="form-control" type="text" onChange={e => setChannel(e.target.value)} placeholder="Enter the Channel" />
-            </div>
-            <div class="mb-3">
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <label class="form-label" for="channel">First Aired:</label>
                 <input id="Year" class="form-control" type="text" onChange={e => setFirstAired(e.target.value)} placeholder="Enter the year it first aired" />
-            </div>
-            <div class="mb-3">
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <label class="form-label" for="epLength">Episode Length:</label>
                 <input id="epLength" class="form-control" type="text" onChange={e => setEpLength(e.target.value)} placeholder="Enter the typical episode length" />
-            </div>
-            <div class="mb-3">
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <label class="form-label" for="rating">Rating:</label>
                 <input id="rating" class="form-control" type="text" onChange={e => setRating(e.target.value)} placeholder="Enter a rating up to 10" />
-            </div>
-            <div>
+            </Form.Group>
+            <Form.Group>
                 <button class="btn btn-primary" type="submit">Add to Library</button>
-            </div>
+            </Form.Group>
             <br/>
             {success && <h3 style={{ color: "green" }}>Success!</h3>}
-        </form>
+        </Form>
+        </Container>
     );
 }
 

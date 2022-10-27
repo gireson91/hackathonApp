@@ -1,38 +1,55 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
 import Show from "./Show";
 
 //Library page
 function Library() {
-    const [title, setTitle] = useState('');
-    const [shows, setShows] = useState([]);
-  
-    const searchShows = async (event) => {
-        event.preventDefault();
+    const [tvShows, setTvShows] = useState([]);
+
+    const searchShows = async () => {
         const res = await axios.get(`http://localhost:1904/programme/getAll`);
-        setShows(res.data.Search);
-    }; 
+        setTvShows(res.data);
+    };
+
+    useEffect(() => { searchShows(); }, []);
+
+    const handleDel = (id) => {
+        axios.delete(`http://localhost:1904/programme/delete/` + id)
+            .then((response) => {
+                console.log("DELETED:", response.data);
+                searchShows();
+            })
+            .catch((err) => console.log(err.message));
+        console.log("ID:", id);
+    }
+
     return (
         <>
-        <Container>
-            <div className="row row-cols-4 g-4">
-                {
-                    shows.map((show) => (
+            <Container fluid>
+                <div className="row row-cols-3 g-4">
+                    {tvShows.map((show) => (
                         <Col>
-                        <Show
-                            key={show.id}
-                            id={show.id}
-                            title={show.title}
-                            description={show.description}
-                        />
+                            <Show
+                                key={show._id}
+                                id={show._id}
+                                name={show.name}
+                                desc={show.desc}
+                                genre={show.genre}
+                                channel={show.channel}
+                                firstAired={show.firstAired}
+                                epLength={show.epLength}
+                                rating={show.rating}
+                                handleDel={handleDel}
+                            >
+                            </Show>
                         </Col>
                     ))
-                }
-            </div>
-        </Container>
+                    }
+                </div>
+            </Container>
         </>
     )
-  }
+}
 
-  export default Library;
+export default Library;
