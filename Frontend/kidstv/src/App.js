@@ -4,13 +4,18 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import Home from './components/Home';
-import Library from './components/Show';
+import Library from './components/Library';
 import Add from './components/Add';
+
+
+
+//Add Function
+
 
 function App() {
   return (
     <Router>
-      <Link to="/Home">
+      <Link to="/">
         <Button variant='primary' type='button'>Home</Button>
       </Link>
       <Link to="/Library">
@@ -20,7 +25,7 @@ function App() {
         <Button variant='primary' type='button'>Add Show</Button>      
       </Link>
       <Routes>
-        <Route path="/home" element={<Home />}/>
+        <Route path="/" element={<Home />}/>
         <Route path="/library" element={<Library />}/>
         <Route path="/add" element={<Add />}/>
       </Routes>

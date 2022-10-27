@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import { Card } from 'react-bootstrap';
+import { Card } from "react-bootstrap";
 
-const Show = ({id, title, description, genre, channel, firstAired, epLength, rating}) => {
-    
-    return(
+//Show function
+const Show = ({ id, title, description, genre, channel, firstAired, epLength, rating }) => {
+
+    return (
         <>
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
@@ -19,11 +19,4 @@ const Show = ({id, title, description, genre, channel, firstAired, epLength, rat
         </>
     )
 }
-
 export default Show;
-
-Show.propTypes = {
-    id: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-};

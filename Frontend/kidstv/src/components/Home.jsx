@@ -1,3 +1,4 @@
+//Home page
 function Home() {
     return (
         <div>
@@ -6,6 +7,6 @@ function Home() {
             <h3>I hope you enjoy it!</h3>
         </div>
     );
-}
+  }
 
-export default Home;
+  export default Home;

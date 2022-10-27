@@ -5,13 +5,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/kids_tv_db", {
 }, (err) => err ? console.error(err) : console.log("Connection to Mongo DB successful"));
 
 const programmeSchema = new mongoose.Schema({
-    'Name': {
+    'name': {
         type: String,
-        require: true
+        required: true
     },
-    'Description': {
+    'desc': {
         type: String,
-        require: true,
+        required: true,
         maxLength: 300
     },
     'Genre': {
