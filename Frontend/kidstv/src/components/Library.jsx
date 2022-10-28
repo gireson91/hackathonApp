@@ -1,5 +1,4 @@
 import axios from "axios";
-import e from "cors";
 import { useEffect, useState } from "react";
 import { Col, Container, Button, Modal, Form } from "react-bootstrap";
 import Show from "./Show";
@@ -8,7 +7,7 @@ import Show from "./Show";
 //Library page
 function Library() {
     const [tvShows, setTvShows] = useState([]);
-    const [show, setShow] = useState({
+    const [thisShow, setThisShow] = useState({
         'name': "",
         'desc': "",
         'genre': "",
@@ -18,6 +17,11 @@ function Library() {
         'rating': ""
     }
     );
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCloseModal = () => setShowModal(false);
+    const handleOpenModal = () => setShowModal(true);
 
     const searchShows = async () => {
         const res = await axios.get(`http://localhost:1904/programme/getAll`);
@@ -37,11 +41,11 @@ function Library() {
     }
     const handleUpdate = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:1904/programme/amend/` + show._id, show)
+        axios.put(`http://localhost:1904/programme/amend/` + thisShow._id, thisShow)
             .then((response) => {
                 console.log("UPDATED:", response.data);
                 searchShows();
-                setShow({
+                setThisShow({
                     'name': "",
                     'desc': "",
                     'genre': "",
@@ -56,25 +60,16 @@ function Library() {
     }
 
     const updateShow = (e) => {
-        setShow(currentShow => {
+        setThisShow(currentShow => {
             const cloneShow = { ...currentShow };
             cloneShow[e.target.id] = e.target.value;
             return cloneShow;
         })
     }
 
-    let display = false;
-
-    for (let val of Object.values(show)) { //displays update form if any values are not blank
-        display = display || !!val;
-    }
-
-    console.log("DISPLAY", display);
-
     return (
         <>
-            {display &&
-                <Modal.Dialog>
+                <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Please update the necessary fields below:</Modal.Title>
                     </Modal.Header>
@@ -82,15 +77,15 @@ function Library() {
                         <Form onSubmit={handleUpdate}>
                             <Form.Group className="mb-3 mt-3">
                                 <Form.Label htmlFor="name">Title:</Form.Label>
-                                <Form.Control id="name" type="text" value={show.name} onChange={updateShow} placeholder="Enter a Show" />
+                                <Form.Control id="name" type="text" value={thisShow.name} onChange={updateShow} placeholder="Enter a Show" />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <label className="form-label" htmlFor="desc">Description:</label>
-                                <textarea id="desc" rows="2" className="form-control" type="text" value={show.desc} onChange={updateShow} placeholder="Enter a Description" />
+                                <Form.Label htmlFor="desc">Description:</Form.Label>
+                                <Form.Control id="desc" rows="2" type="text" value={thisShow.desc} onChange={updateShow} placeholder="Enter a Description" />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <label className="form-label" htmlFor="genre">Genre: (select one)</label>
-                                <select id="genre" className="form-control" value={show.genre} onChange={updateShow}>
+                                <Form.Label htmlFor="genre">Genre: (select one)</Form.Label>
+                                <select id="genre" className="form-control" value={thisShow.genre} onChange={updateShow}>
                                     <option>Action</option>
                                     <option>Adventure</option>
                                     <option>Animation</option>
@@ -101,47 +96,47 @@ function Library() {
                                 </select>
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <label className="form-label" htmlFor="channel">Channel:</label>
-                                <input id="channel" className="form-control" type="text" value={show.channel} onChange={updateShow} placeholder="Enter the Channel" />
+                                <Form.Label htmlFor="channel">Channel:</Form.Label>
+                                <Form.Control id="channel" type="text" value={thisShow.channel} onChange={updateShow} placeholder="Enter the Channel" />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <label className="form-label" htmlFor="firstAired">First Aired:</label>
-                                <input id="firstAired" className="form-control" type="text" value={show.firstAired} onChange={updateShow} placeholder="Enter the year it first aired" />
+                                <Form.Label htmlFor="firstAired">First Aired:</Form.Label>
+                                <Form.Control id="firstAired" type="text" value={thisShow.firstAired} onChange={updateShow} placeholder="Enter the year it first aired" />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <label className="form-label" htmlFor="epLength">Episode Length:</label>
-                                <input id="epLength" className="form-control" type="text" value={show.epLength} onChange={updateShow} placeholder="Enter the typical episode length" />
+                                <Form.Label htmlFor="epLength">Episode Length:</Form.Label>
+                                <Form.Control id="epLength" type="text" value={thisShow.epLength} onChange={updateShow} placeholder="Enter the typical episode length" />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <label className="form-label" htmlFor="rating">Rating:</label>
-                                <input id="rating" className="form-control" type="text" value={show.rating} onChange={updateShow} placeholder="Enter a rating up to 10" />
+                                <Form.Label htmlFor="rating">Rating:</Form.Label>
+                                <Form.Control id="rating" type="text" value={thisShow.rating} onChange={updateShow} placeholder="Enter a rating up to 10" />
                             </Form.Group>
                             <Form.Group>
-                                <Button variant="secondary" >Close</Button>
+                                <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
                                 <Button type="submit" variant="primary" >Save Changes</Button>
                             </Form.Group>
                         </Form>
                     </Container>
                     </Modal.Body>
-                </Modal.Dialog>
-            }
+                </Modal>
             <Container fluid>
                 <div className="row row-cols-3 g-4">
-                    {tvShows.map((show) => {
+                    {tvShows.map((thisShow) => {
                         // debugger;
                         return (
                             <Col key={show._id}>
                                 <Show
-                                    id={show._id}
-                                    name={show.name}
-                                    desc={show.desc}
-                                    genre={show.genre}
-                                    channel={show.channel}
-                                    firstAired={show.firstAired}
-                                    epLength={show.epLength}
-                                    rating={show.rating}
+                                    id={thisShow._id}
+                                    name={thisShow.name}
+                                    desc={thisShow.desc}
+                                    genre={thisShow.genre}
+                                    channel={thisShow.channel}
+                                    firstAired={thisShow.firstAired}
+                                    epLength={thisShow.epLength}
+                                    rating={thisShow.rating}
                                     handleDel={handleDel}
-                                    handleUpdate={() => setShow(show)}
+                                    handleUpdate={() => setThisShow(thisShow)}
+                                    handleOpenModal={handleOpenModal}
                                 >
                                 </Show>
                             </Col>
