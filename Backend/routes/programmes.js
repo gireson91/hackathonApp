@@ -32,7 +32,7 @@ router.put("/amend/:id", async (req, res, next) => {
     try {
         const {id} = req.params;
         const newData = req.body;
-        const result = await programme.findByIdAndUpdate(id, newData, next);
+        const result = await programme.findByIdAndUpdate(id, newData);
         res.status(201).send(result);
     } catch(err) {
         return next(err);

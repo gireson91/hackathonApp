@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Form, Row } from 'react-bootstrap'
+import { Container, Form } from 'react-bootstrap'
 
 function Add() {
     const [name, setName] = useState('');
@@ -18,25 +18,25 @@ function Add() {
         try {
             const res = await axios.post('http://127.0.0.1:1904/programme/add', { name, desc, genre, channel, firstAired, epLength, rating })
             console.log('Res', res)
+            setName("");
+            setDesc("");
+            setGenre("");
+            setChannel("");
+            setFirstAired("");
+            setEpLength("");
+            setRating("");
+            setSuccess(true);
         } catch (err) {
             setSuccess(false);
         }
-        setName("");
-        setDesc("");
-        setGenre("");
-        setChannel("");
-        setFirstAired("");
-        setEpLength("");
-        setRating("");
-        setSuccess(true);
     }
 
     return (
         <Container fluid>
         <Form onSubmit={handleAdd} action="/action_page.php">
-            <Form.Group as={Row} className="mb-3 mt-3" controlId="formHorizontal">
-                <Form.Label  column sm={2} for="title">Title:</Form.Label>
-                <Form.Control id="title" class="form-control" type="text" onChange={e => setName(e.target.value)} placeholder="Enter a Show" />
+            <Form.Group className="mb-3 mt-3">
+                <Form.Label htmlfor="title">Title:</Form.Label>
+                <Form.Control id="title" type="text" onChange={e => setName(e.target.value)} placeholder="Enter a Show" />
             </Form.Group>
             <Form.Group className="mb-3">
                 <label class="form-label"  for="desc">Description:</label>

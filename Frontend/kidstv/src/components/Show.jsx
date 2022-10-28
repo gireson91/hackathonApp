@@ -1,7 +1,8 @@
 import { Card, Button, ButtonGroup } from "react-bootstrap";
 
 
-const Show = ({ id, name, desc, genre, channel, firstAired, epLength, rating, handleDel }) => {
+
+const Show = ({ id, name, desc, genre, channel, firstAired, epLength, rating, handleOpen, handleDel, handleUpdate }) => {
 
 
     return (
@@ -16,7 +17,7 @@ const Show = ({ id, name, desc, genre, channel, firstAired, epLength, rating, ha
                     <Card.Text>{`Episode Length: ${epLength}`}</Card.Text>
                     <Card.Text>{`Rating: ${rating}`}</Card.Text>
                     <ButtonGroup key={id}>
-                        <Button>Update</Button>{' '}
+                        <Button onClick={handleUpdate}>Update</Button>
                         <Button variant="danger" onClick={() => handleDel(id)}>Delete</Button>
                     </ButtonGroup>
                 </Card.Body>

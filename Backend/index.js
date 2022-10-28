@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 app.use('/programme', programme);
 
 app.use((err, req, res, next) => {
-    res.status(500).send(err);
+    console.log(err);
+    res.status(500).send(err.message);
 })
 
 const server = app.listen(1904, () => {
